@@ -1,48 +1,47 @@
-# Sensor Puyo - Consola de Operaciones
+# Sensor Puyo - Control ambiental
 
-Aplicación WinForms para la gestión y monitoreo de estaciones ambientales de temperatura y humedad en Puyo
+Sistema WinForms para registrar estaciones IoT y lecturas de temperatura y humedad de la ciudad de Puyo.
 
-## Contenido
+## Modulos
 
-- Inicio de sesión con roles **Admin**, **Operador** y **Consulta**.
-- Gestión de usuarios, estaciones y mediciones.
-- Control de permisos según el rol.
-- Registro de auditoría de accesos.
-- Conexión a MySQL.
-- Script SQL para crear la base de datos.
-- Integración con Arduino y sensor DHT11.
+- Autenticacion por usuario y contrasena.
+- Menu superior filtrado por rol.
+- Administracion de usuarios.
+- Inventario de sensores y estaciones.
+- Historial de mediciones ambientales.
+- Auditoria de intentos sin autorizacion.
+- Inicializacion del esquema MySQL.
 
 ## Requisitos
 
-- Visual Studio 2022 o superior.
-- .NET 8 Desktop Runtime.
-- MySQL (MAMP o XAMPP).
+1. Visual Studio 2022 o posterior con Desarrollo de escritorio de .NET.
+2. MAMP con MySQL disponible en `127.0.0.1:3306`.
 
-## Ejecución
+## Inicio
 
-1. Iniciar el servidor MySQL.
-2. Ejecutar el script `scripts/database.sql`.
-3. Configurar la conexión en `appsettings.json`.
-4. Abrir la solución y ejecutar el proyecto.
+1. Encienda MySQL en MAMP.
+2. Abra `Sensor Puyo Control.slnx`.
+3. Compruebe los datos de conexion en `MonitoreoAmbiental.WinForms/appsettings.json`.
+4. Ejecute con `Ctrl+F5`.
 
-## Accesos
+Esta variante trabaja con la base `sensores_puyo_control`. El archivo `scripts/database.sql` permite crearla manualmente desde phpMyAdmin.
 
-| Usuario | Contraseña | Rol |
-|----------|------------|-----|
-| admin | Admin123* | Admin |
-| operador | Opera123* | Operador |
-| consulta | Consulta123* | Consulta |
+## Usuarios de demostracion
 
-## Permisos
+| Usuario | Contrasena | Rol |
+|---|---|---|
+| `admin` | `Admin123*` | Admin |
+| `operador` | `Opera123*` | Operador |
+| `consulta` | `Consulta123*` | Consulta |
 
-| Función | Admin | Operador | Consulta |
-|----------|:-----:|:---------:|:---------:|
-| Usuarios (CRUD) | Sí | No | No |
-| Consultar dispositivos | Sí | Sí | Sí |
-| Modificar dispositivos | Sí | Sí | No |
-| Consultar mediciones | Sí | Sí | Sí |
-| Crear y editar mediciones | Sí | Sí | No |
-| Eliminar mediciones | Sí | No | No |
-| Auditoría | Sí | No | No |
+## Alcance de cada rol
 
-Las capturas del proyecto se encuentran en la carpeta `evidencias/`.
+| Modulo | Admin | Operador | Consulta |
+|---|:---:|:---:|:---:|
+| Usuarios | CRUD | Sin acceso | Sin acceso |
+| Dispositivos | CRUD | CRUD | Lectura |
+| Mediciones | CRUD | Crear y editar | Lectura |
+| Auditoria | Lectura | Sin acceso | Sin acceso |
+
+Las evidencias visuales estan en `evidencias/`.
+
